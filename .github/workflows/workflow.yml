@@ -155,6 +155,11 @@ jobs:
          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
          cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
 
+    - name: Docker Pull Image
+      run: |
+        docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+
     - name: Deploy Helm To Development
       run: |
         helm upgrade --install --atomic --wait --timeout 3600s --debug kube2py ./kube2py-*.tgz \
