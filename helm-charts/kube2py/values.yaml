@@ -7,6 +7,8 @@ global:
 mysql:
   configs:
     MYSQL_ROOT_PASSWORD: placeholder
+  passwordUpdateJob:
+    enabled: false
 
 kube2py:
   image:
