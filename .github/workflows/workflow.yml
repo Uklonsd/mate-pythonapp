@@ -155,9 +155,9 @@ jobs:
          resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
          cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
 
-    - name: Docker Pull Image
-      run: |
-        docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+    # - name: Docker Pull Image
+    #   run: |
+    #     docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
 
 
@@ -165,6 +165,7 @@ jobs:
       run: |
         helm upgrade --install --atomic --wait --timeout 3600s --debug kube2py ./kube2py-*.tgz \
         -f ./kube2py/values.yaml \
+        --set primary.service.annotations="{}" \
         --set-string mysql.configs.MYSQL_ROOT_PASSWORD="${{ secrets.MYSQL_ROOT_PASSWORD }}" \
         --set-string mysql.configs.MYSQL_USER="${{ secrets.MYSQL_USER }}" \
         --set-string mysql.configs.MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}" \
@@ -173,4 +174,3 @@ jobs:
         --set-string kube2py.secrets.DB_CONNECTION="${{ secrets.DB_CONNECTION }}" \
         --set kube2py.image.version=2.0.0
 
-        
