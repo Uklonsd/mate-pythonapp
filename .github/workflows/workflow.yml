@@ -172,6 +172,3 @@ jobs:
         --set-string kube2py.secrets.login="${{ secrets.KUBE2PY_LOGIN }}" \
         --set-string kube2py.secrets.DB_CONNECTION="${{ secrets.DB_CONNECTION }}" \
         --set kube2py.image.version=${{ github.sha }}
-
-
-        
