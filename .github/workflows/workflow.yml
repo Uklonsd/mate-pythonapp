@@ -10,11 +10,15 @@ env:
   PYTHON_VERSION: 3.8
   DOCKER_IMAGE_NAME: kube2py
 
-  
+
 jobs:
   python-ci:
     name: Python CI
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        PythonVersion: [3.8, 3.9]
+        OsType: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.OsType }}
     defaults:
       run:
         working-directory: ./src
@@ -24,9 +28,9 @@ jobs:
     - uses: actions/checkout@v4
 
     - uses: actions/setup-python@v5
-      name: Setup Python ${{ env.PYTHON_VERSION }}
+      name: Setup Python ${{ matrix.PythonVersion}}
       with:
-        python-version: '${{ env.PYTHON_VERSION }}'
+        python-version: '${{ matrix.PythonVersion }}'
 
     - name: Install dependencies
       run: |
