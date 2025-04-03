@@ -58,6 +58,10 @@ jobs:
       #     docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
 
+      - name: Dry Run Helm
+        run: |
+          helm template ${{ inputs.helm-release-name }} ./kube2py-*.tgz -f ${{ inputs.helm-values-path }}
+
 
       - name: Deploy Helm To Development
         run: |
