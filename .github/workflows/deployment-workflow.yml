@@ -18,7 +18,6 @@ on:
         default: kube2py-staging
         type: string
 
-
 jobs:
 
   deploy-helm:
