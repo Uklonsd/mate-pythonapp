@@ -15,7 +15,7 @@ on:
         type: string
         default: './kube2py/values.yaml'
       helm-release-name:
-        default: kube2py
+        default: kube2py-${{ inputs.environment }}
         type: string
 
 
@@ -52,10 +52,6 @@ jobs:
         with:
           resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
           cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
-
-      # - name: Docker Pull Image
-      #   run: |
-      #     docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
 
       - name: Dry Run Helm
