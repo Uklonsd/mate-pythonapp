@@ -15,7 +15,7 @@ on:
         type: string
         default: './kube2py/values.yaml'
       helm-release-name:
-        default: kube2py-${{ inputs.environment }}
+        default: kube2py-staging
         type: string
 
 
@@ -52,11 +52,6 @@ jobs:
         with:
           resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
           cluster-name: ${{ vars.AZURE_CLUSTER_NAME }}
-
-
-      - name: Dry Run Helm
-        run: |
-          helm template ${{ inputs.helm-release-name }} ./kube2py-*.tgz -f ${{ inputs.helm-values-path }}
 
 
       - name: Deploy Helm To Development
